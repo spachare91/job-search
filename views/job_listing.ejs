@@ -14,9 +14,9 @@
             </div>
         </div>
         <!-- Hero Area End -->
-        <h1 style="text-align:center"><%= name  %> </h1>
-   
-        <h1 style="text-align:center"><%= place %> </h1>
+        <script>
+
+        </script>
         <!-- Job List Area Start -->
         <div class="job-listing-area pt-120 pb-120">
             <div class="container">
@@ -31,67 +31,78 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="count-job mb-35">
-                                            <span>39, 782 Jobs found</span>
+                                            <span><h3><%=count  %>  Jobs found for '<%= name %>' in '<%= place %>'</h3> </span>
                                             <!-- Select job items start -->
                                             <div class="select-job-items">
                                                 <span>Sort by</span>
-                                                <select name="select">
-                                                    <option value="">None</option>
-                                                    <option value="">job list</option>
-                                                    <option value="">job list</option>
-                                                    <option value="">job list</option>
+                                                <select name="select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                    <option value="">Date</option>
+                                                    <option value="http://localhost:5000/search/salary">Salary</option>
+                                                    <option value="">Relevance</option>
                                                 </select>
+
+
                                             </div>
+                                            <div class="select-job-items">
+                                                <span><a href="">Aplply changes</a></span> 
+                                             </div>
+                                            
+
                                             <!--  Select job items End-->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Count of Job list End -->
-                                <!-- single-job-content -->
-                                <div class="single-job-items mb-30">
-                                    <div class="job-items">
-                                        <div class="company-img">
-                                            <a href="#"><img src="img/icon/job-list1.png" alt=""></a>
-                                        </div>
-                                        <div class="job-tittle job-tittle2">
-                                            <a href="#">
-                                                <h4>Digital Marketer</h4>
-                                            </a>
-                                            <ul>
-                                                <li>Creative Agency</li>
-                                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                                <li>$3500 - $4000</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="items-link items-link2 f-right">
-                                        <a href="job_details.html">Full Time</a>
-                                        <span>7 hours ago</span>
-                                    </div>
-                                </div>
-                                <!-- single-job-content -->
 
-                                <div class="single-job-items mb-30">
-                                    <div class="job-items">
-                                        <div class="company-img">
-                                            <a href="#"><img src="img/icon/job-list4.png" alt=""></a>
+                                
+                                <!-- Count of Job list End -->
+
+
+                                <% jobs.forEach((data,index)=>{ %>
+
+                                    <div class="single-job-items mb-30">
+                                        <div class="job-items">
+                                            <div class="company-img">
+                                                <a href="#"><img src="img/icon/job-list1.png" alt=""></a>
+                                            </div>
+                                            <div class="job-tittle job-tittle2">
+                                                <a href="#">
+                                                    <h4><%= data.company.display_name %> </h4>
+                                                </a>
+                                                <ul>
+                                                    <li><%= data.title.substring(0,20) %> </li>
+                                                    <li><i class="fas fa-map-marker-alt"></i><%= data.location.display_name %> </li>
+                       
+  
+                                     
+                                                    <% if('salary_min' in data && 'salary_max' in data ) {%> 
+                                                        <li>₹<%= parseInt(data.salary_min)/1000 %>k-<%= parseInt(data.salary_max)/1000 %>k</li>
+                                                       
+                                                   <%}else{%> 
+                                                    <li>Confidential Sal</li>
+                                                    <%}%> 
+
+                                                </ul>
+                                            </div>
+
                                         </div>
-                                        <div class="job-tittle job-tittle2">
-                                            <a href="#">
-                                                <h4>Digital Marketer</h4>
-                                            </a>
-                                            <ul>
-                                                <li>Creative Agency</li>
-                                                <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                                <li>$3500 - $4000</li>
-                                            </ul>
+                                        <div class="items-link items-link2 f-right">
+                                            <a href="<%= data.redirect_url %> ">Details </a>
+                                            <span><%= data.created.substring(0,10) %> </span>
                                         </div>
+                                     <div class="job-items">
+                                            <div class="job-tittle job-tittle2">
+                                                <ul>
+                                                    <li>Description: <%= data.description  %> </li>
+                                                </ul>
+                                            </div>
+
+                                        </div> 
+    
                                     </div>
-                                    <div class="items-link items-link2 f-right">
-                                        <a href="job_details.html">Full Time</a>
-                                        <span>7 hours ago</span>
-                                    </div>
-                                </div>
+
+
+                                  <% }) %> 
+
                             </div>
                         </section>
                         <!-- Featured_job_end -->
@@ -108,10 +119,11 @@
                         <div class="single-wrap d-flex justify-content-center">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-start">
-                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><span class="ti-angle-right"></span></a></li>
+                                    <% if(count>20){ %> 
+                                    <li class="page-item active"><a class="page-link" href="#">LOAD MORE</a></li>
+                                    <% }else{ %> 
+                                        <span>thats it</span>
+                                    <% } %> 
                                 </ul>
                             </nav>
                         </div>

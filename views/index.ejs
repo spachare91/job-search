@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-9 col-md-10">
                                 <div class="hero__caption">
-                                    <h1>Find the most exciting startup jobs</h1>
+                                    <h1>Find your dream job easily here!</h1>
                                 </div>
                             </div>
                         </div>
@@ -21,16 +21,14 @@
                                     <div class="input-form">
                                         <input type="text" name="jobtitle" placeholder="Job Tittle or keyword">
                                     </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="place" id="select1">
-                                                <option value="INDIA">INDIA</option>
-
-                                            </select>
-                                        </div>
+                                    <div class="input-form">
+                                        <input type="text" name="place" placeholder="Any city in India">
                                     </div>
+                                    <div class="search-form">
+                                        <button type="button submit" value="Submit" class="btn btn-info">Find Jobs</button>
+                                    </div>	
                                     
-                                    <button type="submit" value="Submit">Submit</button>
+                                   
                                         
                                    	
                                 </form>	
@@ -51,93 +49,48 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-tittle text-center">
-                            <span>Recent Job</span>
-                            <h2>Featured Jobs</h2>
+         
+                            <h2>Recent Job</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-xl-10">
                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="img/icon/job-list1.png" alt=""></a>
+                        <% jobs.forEach((data,index)=>{ %>
+
+                            <div class="single-job-items mb-30">
+                                <div class="job-items">
+                                    <div class="company-img">
+                                        <a href="#"><img src="img/icon/job-list1.png" alt=""></a>
+                                    </div>
+                                    <div class="job-tittle job-tittle2">
+                                        <a href="#">
+                                            <h4><%= data.company.display_name %> </h4>
+                                        </a>
+                                        <ul>
+                                            <li><%= data.title.substring(0,20) %> </li>
+                                            <li><i class="fas fa-map-marker-alt"></i><%= data.location.display_name %> </li>
+               
+
+                                            <li>₹<%= data.salary_min %>-<%= data.salary_max %></li>
+
+                                        </ul>
+                                    </div>
+
                                 </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
+                                <div class="items-link items-link2 f-right">
+                                    <a href="<%= data.redirect_url %> ">Details </a>
+                                    <span><%= data.created.substring(0,10) %> </span>
                                 </div>
+
                             </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
+
+
+                          <% }) %> 
+
                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="img/icon/job-list2.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="img/icon/job-list3.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
-                         <!-- single-job-content -->
-                        <div class="single-job-items mb-30">
-                            <div class="job-items">
-                                <div class="company-img">
-                                    <a href="job_details.html"><img src="img/icon/job-list4.png" alt=""></a>
-                                </div>
-                                <div class="job-tittle">
-                                    <a href="job_details.html"><h4>Digital Marketer</h4></a>
-                                    <ul>
-                                        <li>Creative Agency</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Athens, Greece</li>
-                                        <li>$3500 - $4000</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="items-link f-right">
-                                <a href="job_details.html">Full Time</a>
-                                <span>7 hours ago</span>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
