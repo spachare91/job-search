@@ -23,16 +23,19 @@ router.get('/',async(req, res) => {
 
 })
 
+
+
 router.post('/search',async(req, res) => {
 
     let name=req.body.jobtitle;
     name=name.replace(" ","%20");
     let place=req.body.place;
+    let pagenum=req.body.pagenum;
 
       try {
 
   
-        const ans='https://api.adzuna.com/v1/api/jobs/in/search/1?'+'app_id='+process.env.APP_ID+'&app_key='+process.env.APP_KEY+'&results_per_page=100&what='+name+'&where='+place+'&max_days_old=60&sort_by=date';
+        const ans='https://api.adzuna.com/v1/api/jobs/in/search/'+pagenum+'?'+'app_id='+process.env.APP_ID+'&app_key='+process.env.APP_KEY+'&results_per_page=20&what='+name+'&where='+place+'&max_days_old=60&sort_by=date';
         var respon= await axios.get(ans)
         
     } catch (error) {
@@ -40,9 +43,16 @@ router.post('/search',async(req, res) => {
         
     }
 
-    //res.redirect(`/search/1/${name}/${place}`)
+    var totaljobs=respon.data.count;
+    var totalpages=totaljobs/15;
+    totalpages=Math.ceil(totalpages);
 
-    res.render('job_listing', {name:name,place:place,jobs:respon.data.results,count:respon.data.count})
+    res.render('job_listing', {name:name,place:place,jobs:respon.data.results,count:respon.data.count,pagenum:pagenum,totalpages:totalpages})
+})
+
+router.post('/newpage',(req,res)=>{
+    var ans=req.body.jobname;
+    res.send(ans);
 })
 
 // search  with page num

@@ -1,136 +1,187 @@
-<%- include('header')  -%> 
-        <!-- Hero Area Start-->
-        <div class="slider-area ">
-            <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="img/hero/about.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap text-center">
-                                <h2>Get your job</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<%- include('header') -%>
+<!-- Hero Area Start-->
+<div class="slider-area">
+  <div
+    class="single-slider section-overly slider-height2 d-flex align-items-center"
+    data-background="img/hero/about.jpg"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="hero-cap text-center">
+            <h2>Get your job</h2>
+          </div>
         </div>
-        <!-- Hero Area End -->
-        <script>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hero Area End -->
+<script></script>
+<!-- Job List Area Start -->
+<div class="job-listing-area pt-120 pb-120">
+  <div class="container">
+    <div class="row">
+      <!-- Right content -->
+      <div class="col-xl-9 col-lg-9 col-md-8">
+        <!-- Featured_job_start -->
+        <section class="featured-job-area">
+          <div class="container">
+            <!-- Count of Job list Start -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="count-job mb-35">
+                  <span
+                    ><h3>
+                      <%=count %> Jobs found for '<%=name%>' in '<%= place %>'
+                      
+                    </h3>
+                    <h3>Page: <%= pagenum  %> </h3>
+                  </span>
+                  <!-- Select job items start -->
 
-        </script>
-        <!-- Job List Area Start -->
-        <div class="job-listing-area pt-120 pb-120">
-            <div class="container">
-                <div class="row">
-                   
-                    <!-- Right content -->
-                    <div class="col-xl-9 col-lg-9 col-md-8">
-                        <!-- Featured_job_start -->
-                        <section class="featured-job-area">
-                            <div class="container">
-                                <!-- Count of Job list Start -->
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="count-job mb-35">
-                                            <span><h3><%=count  %>  Jobs found for '<%= name %>' in '<%= place %>'</h3> </span>
-                                            <!-- Select job items start -->
-                                            <div class="select-job-items">
-                                                <span>Sort by</span>
-                                                <select name="select" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                                                    <option value="">Date</option>
-                                                    <option value="http://localhost:5000/search/salary">Salary</option>
-                                                    <option value="">Relevance</option>
-                                                </select>
+                  <div class="select-job-items">
+                    <span>Sort by</span>
+                    <select name="select" onchange="sortbys(value);">
+                      <option value="1">Date</option>
+                      <option value="2">Salary</option>
+                    </select>
+
+                    <% var jobname=name; %> <% var placename=place; %>
+
+                    <script type="text/javascript">
+                      function sortbys(v) {
+                        if (v === "2") {
+                          var jobname = "<%= jobname %>";
+                          var place = "<%= placename %>";
+                          var sortedby = "salary";
+                          alert(place);
 
 
-                                            </div>
-                                            <div class="select-job-items">
-                                                <span><a href="">Aplply changes</a></span> 
-                                             </div>
-                                            
 
-                                            <!--  Select job items End-->
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-                                <!-- Count of Job list End -->
-
-
-                                <% jobs.forEach((data,index)=>{ %>
-
-                                    <div class="single-job-items mb-30">
-                                        <div class="job-items">
-                                            <div class="company-img">
-                                                <a href="#"><img src="img/icon/job-list1.png" alt=""></a>
-                                            </div>
-                                            <div class="job-tittle job-tittle2">
-                                                <a href="#">
-                                                    <h4><%= data.company.display_name %> </h4>
-                                                </a>
-                                                <ul>
-                                                    <li><%= data.title.substring(0,20) %> </li>
-                                                    <li><i class="fas fa-map-marker-alt"></i><%= data.location.display_name %> </li>
-                       
+                        } else {
+                          alert("hello from 2....");
   
-                                     
-                                                    <% if('salary_min' in data && 'salary_max' in data ) {%> 
-                                                        <li>₹<%= parseInt(data.salary_min)/1000 %>k-<%= parseInt(data.salary_max)/1000 %>k</li>
-                                                       
-                                                   <%}else{%> 
-                                                    <li>Confidential Sal</li>
-                                                    <%}%> 
+                        }
+                      }
+                    </script>
+                  </div>
 
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                        <div class="items-link items-link2 f-right">
-                                            <a href="<%= data.redirect_url %> ">Details </a>
-                                            <span><%= data.created.substring(0,10) %> </span>
-                                        </div>
-                                     <div class="job-items">
-                                            <div class="job-tittle job-tittle2">
-                                                <ul>
-                                                    <li>Description: <%= data.description  %> </li>
-                                                </ul>
-                                            </div>
-
-                                        </div> 
-    
-                                    </div>
-
-
-                                  <% }) %> 
-
-                            </div>
-                        </section>
-                        <!-- Featured_job_end -->
-                    </div>
+                  <!--  Select job items End-->
                 </div>
+              </div>
             </div>
-        </div>
-        <!-- Job List Area End -->
-        <!--Pagination Start  -->
-        <div class="pagination-area pb-115 text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="single-wrap d-flex justify-content-center">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-start">
-                                    <% if(count>20){ %> 
-                                    <li class="page-item active"><a class="page-link" href="#">LOAD MORE</a></li>
-                                    <% }else{ %> 
-                                        <span>thats it</span>
-                                    <% } %> 
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+
+            <!-- Count of Job list End -->
+
+            <% jobs.forEach((data,index)=>{ %>
+
+            <div class="single-job-items mb-30">
+              <div class="job-items">
+                <div class="company-img">
+                  <a href="#"><img src="img/icon/job-list1.png" alt="" /></a>
                 </div>
+                <div class="job-tittle job-tittle2">
+                  <a href="#">
+                    <h4><%= data.company.display_name %></h4>
+                  </a>
+                  <ul>
+                    <li><%= data.title.substring(0,20) %></li>
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i><%=
+                      data.location.display_name %>
+                    </li>
+
+                    <% if('salary_min' in data && 'salary_max' in data ) {%>
+                    <li>
+                      ₹<%= parseInt(data.salary_min)/1000 %>k-<%=
+                      parseInt(data.salary_max)/1000 %>k
+                    </li>
+
+                    <%}else{%>
+                    <li>Confidential Sal</li>
+                    <%}%>
+                  </ul>
+                </div>
+              </div>
+              <div class="items-link items-link2 f-right">
+                <a href="<%= data.redirect_url %> ">Details </a>
+                <span><%= data.created.substring(0,10) %> </span>
+              </div>
+              <div class="job-items">
+                <div class="job-tittle job-tittle2">
+                  <ul>
+                    <li>Description: <%= data.description %></li>
+                  </ul>
+                </div>
+              </div>
             </div>
+
+            <% }) %>
+          </div>
+        </section>
+        <!-- Featured_job_end -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Job List Area End -->
+<!--Pagination Start  -->
+<div class="pagination-area pb-115 text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="single-wrap d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+
+
+
+
+                <% if(pagenum==1){ %>
+
+                    <% }else{ %>
+                        <li class="page-item active">
+                            <% var newvalueofpage=parseInt(pagenum)-1; %> 
+                          <form action="/search" method="post">
+                              <input type="hidden" id="jobname" name="jobtitle" value="<%= name  %>">
+                              <input type="hidden" id="jobpalce" name="place" value="<%= place %>">
+                              <input type="hidden" id="pagenum" name="pagenum" value="<%=newvalueofpage  %>">
+                              
+                              <input class="page-link" type="submit" value="GO BACK TO PAGE<%= newvalueofpage %>">
+                          </form>
+                          
+                        </li>
+
+                    <% } %>
+      
+
+              <% if(pagenum<totalpages){ %>
+              <li class="page-item active">
+                  <% var newvalueofpage=parseInt(pagenum)+1; %> 
+                <form action="/search" method="post">
+                    <input type="hidden" id="jobname" name="jobtitle" value="<%= name  %>">
+                    <input type="hidden" id="jobpalce" name="place" value="<%= place %>">
+                    <input type="hidden" id="pagenum" name="pagenum" value="<%= newvalueofpage  %>">
+                    
+                    <input class="page-link" type="submit" value="NEXT PAGE <%= newvalueofpage  %>">
+                </form>
+                
+              </li>
+              <% }else{ %>
+                <BR>
+              <H3>NO MORE RESULTS</H3>
+              <% } %>
+
+
+
+            </ul>
+          </nav>
         </div>
-        <!--Pagination End  -->
-        
-        <%- include('footer')  -%> 
+      </div>
+    </div>
+  </div>
+</div>
+<!--Pagination End  -->
+
+<%- include('footer') -%>
