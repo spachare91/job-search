@@ -18,22 +18,49 @@
 </div>
 <!-- Hero Area End -->
 <script></script>
+
+
+
 <!-- Job List Area Start -->
+
+
+<div class="container">
+  <%- include('filterss') -%>
+  <br>
+
+<% if(filterapplied=="0"){ %> 
+  <% }else{ %> 
+    
+
+    <div class="container alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Filter Applied Successfully</strong> jobs are sorted by <%= sortbyy  %>  
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %> 
+    
+
+
+</div>
+
 <div class="job-listing-area pt-120 pb-120">
   <div class="container">
     <div class="row">
       <!-- Right content -->
-      <div class="col-xl-9 col-lg-9 col-md-8">
+      <div class="col-xl-10 col-lg-10 col-md-10">
         <!-- Featured_job_start -->
         <section class="featured-job-area">
           <div class="container">
+       
             <!-- Count of Job list Start -->
             <div class="row">
               <div class="col-lg-12">
                 <div class="count-job mb-35">
                   <span
                     ><h3>
-                      <%=count %> Jobs found for '<%=name%>' in '<%= place %>'
+                      <%=count %> Jobs found for '<%=name%>' in '<%= place %>' 
+                
                       
                     </h3>
                     <h3>Page: <%= pagenum  %> </h3>
@@ -41,35 +68,17 @@
                   <!-- Select job items start -->
 
                   <div class="select-job-items">
-                    <span>Sort by</span>
-                    <select name="select" onchange="sortbys(value);">
-                      <option value="1">Date</option>
-                      <option value="2">Salary</option>
-                    </select>
+                  
+                    
 
                     <% var jobname=name; %> <% var placename=place; %>
 
-                    <script type="text/javascript">
-                      function sortbys(v) {
-                        if (v === "2") {
-                          var jobname = "<%= jobname %>";
-                          var place = "<%= placename %>";
-                          var sortedby = "salary";
-                          alert(place);
-
-
-
-                        } else {
-                          alert("hello from 2....");
-  
-                        }
-                      }
-                    </script>
                   </div>
 
                   <!--  Select job items End-->
                 </div>
               </div>
+
             </div>
 
             <!-- Count of Job list End -->
@@ -79,10 +88,10 @@
             <div class="single-job-items mb-30">
               <div class="job-items">
                 <div class="company-img">
-                  <a href="#"><img src="img/icon/job-list1.png" alt="" /></a>
+                  <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer"><img src="img/icon/job-list1.png" alt="" /></a>
                 </div>
                 <div class="job-tittle job-tittle2">
-                  <a href="#">
+                  <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer">
                     <h4><%= data.company.display_name %></h4>
                   </a>
                   <ul>
@@ -94,7 +103,7 @@
 
                     <% if('salary_min' in data && 'salary_max' in data ) {%>
                     <li>
-                      ₹<%= parseInt(data.salary_min)/1000 %>k-<%=
+                      ₹<%= parseInt(data.salary_min)/1000 %>k-₹<%=
                       parseInt(data.salary_max)/1000 %>k
                     </li>
 
@@ -105,13 +114,14 @@
                 </div>
               </div>
               <div class="items-link items-link2 f-right">
-                <a href="<%= data.redirect_url %> ">Details </a>
+                <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer">Details </a>
                 <span><%= data.created.substring(0,10) %> </span>
               </div>
               <div class="job-items">
                 <div class="job-tittle job-tittle2">
                   <ul>
-                    <li>Description: <%= data.description %></li>
+                    <div class="container" id="descriptiondiv"> <li>Description: <%= data.description %></li></div>
+                   
                   </ul>
                 </div>
               </div>
@@ -122,7 +132,16 @@
         </section>
         <!-- Featured_job_end -->
       </div>
+      <!-- left content -->
+      
+      <div class="col-xl-3 col-lg-3 col-md-4">
+
+      </div>
+
+
     </div>
+
+
   </div>
 </div>
 <!-- Job List Area End -->
@@ -135,8 +154,8 @@
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-start">
 
-
-
+              
+              
 
                 <% if(pagenum==1){ %>
 
@@ -147,8 +166,21 @@
                               <input type="hidden" id="jobname" name="jobtitle" value="<%= name  %>">
                               <input type="hidden" id="jobpalce" name="place" value="<%= place %>">
                               <input type="hidden" id="pagenum" name="pagenum" value="<%=newvalueofpage  %>">
+                              <input type="hidden" id="sortbyy" name="sortbyy" value="<%= sortbyy %>">
+                              <input type="hidden" id="minsalary" name="minsalary" value="<%= salarymin  %>">
+                              <input type="hidden" id="maxsalary" name="maxsalary" value="<%= salarymax  %>">
+                              <input type="hidden" id="filterapplied" name="filterapplied" value="0">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col">
+                                    <input class="page-link" type="submit" value="Go back to page <%= newvalueofpage %>">
+
+                                  </div>
+                                </div>
+
+                              </div>
                               
-                              <input class="page-link" type="submit" value="GO BACK TO PAGE<%= newvalueofpage %>">
+                              
                           </form>
                           
                         </li>
@@ -163,14 +195,27 @@
                     <input type="hidden" id="jobname" name="jobtitle" value="<%= name  %>">
                     <input type="hidden" id="jobpalce" name="place" value="<%= place %>">
                     <input type="hidden" id="pagenum" name="pagenum" value="<%= newvalueofpage  %>">
+                    <input type="hidden" id="sortbyy" name="sortbyy" value="<%= sortbyy %>">
+                    <input type="hidden" id="minsalary" name="minsalary" value="<%= salarymin  %>">
+                    <input type="hidden" id="maxsalary" name="maxsalary" value="<%= salarymax  %>">
+                    <input type="hidden" id="filterapplied" name="filterapplied" value="0">
                     
-                    <input class="page-link" type="submit" value="NEXT PAGE <%= newvalueofpage  %>">
+                    <input class="page-link" type="submit" value="Next Page <%= newvalueofpage  %>">
                 </form>
                 
               </li>
               <% }else{ %>
-                <BR>
-              <H3>NO MORE RESULTS</H3>
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <H3>No more results</H3>
+
+                    </div>
+                  </div>
+
+                </div>
+
+       
               <% } %>
 
 

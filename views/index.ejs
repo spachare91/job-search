@@ -17,14 +17,21 @@
                         <div class="row">
                             <div class="col-xl-8">
                                 <!-- form -->
-                                <form action="/search" class="search-box" method="POST">
+                                <form action="/search" onclick="validateform();" class="search-box" method="POST">
                                     <div class="input-form">
-                                        <input type="text" name="jobtitle" placeholder="Job Tittle or keyword">
+                                        <input type="text" name="jobtitle" id="jobtitle" required minlength="3" maxlength="50" placeholder="Job Tittle or keyword">
                                     </div>
                                     <div class="input-form">
-                                        <input type="text" name="place" placeholder="Any city in India">
+                                        <input type="text" name="place" id="placename" required minlength="3" maxlength="50" placeholder="Any city in India">
                                     </div>
                                     <input type="hidden" id="pagenum" name="pagenum" value="1">
+                                    <input type="hidden" id="sortbyy" name="sortbyy" value="date">
+                                    <input type="hidden" id="fulltime" name="fulltime" value="1">
+                                    <input type="hidden" id="parttime" name="parttime" value="1">
+                                    <input type="hidden" id="minsalary" name="minsalary" value="10000">
+                                    <input type="hidden" id="maxsalary" name="maxsalary" value="100000000">
+                                    <input type="hidden" id="filterapplied" name="filterapplied" value="0">
+
                                     <div class="search-form">
                                         <button type="button submit" value="Submit" class="btn btn-info">Find Jobs</button>
                                     </div>	

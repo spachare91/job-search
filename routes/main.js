@@ -2,10 +2,13 @@ const express = require('express');
 const axios=require('axios');
 const dotenv=require('dotenv');
 const { response } = require('express');
+const { append } = require('express/lib/response');
 const router= express.Router();
 
 dotenv.config({path:'./config.env'})
 
+
+// home route...displays 5 job records for backend developer
 router.get('/',async(req, res) => {
 
     try {
@@ -16,6 +19,7 @@ router.get('/',async(req, res) => {
         
     } catch (error) {
         console.log("some error")
+        res.redirect('*')
         
     }
 
@@ -24,36 +28,39 @@ router.get('/',async(req, res) => {
 })
 
 
-
+// search route to show jobs posting in last 60 days....
 router.post('/search',async(req, res) => {
 
     let name=req.body.jobtitle;
+    let xname=name  
     name=name.replace(" ","%20");
     let place=req.body.place;
     let pagenum=req.body.pagenum;
+    let sortbyy=req.body.sortbyy;
+    let salarymin=req.body.minsalary;
+    let salarymax=req.body.maxsalary;
+    var filterapplied=req.body.filterapplied;
 
       try {
 
   
-        const ans='https://api.adzuna.com/v1/api/jobs/in/search/'+pagenum+'?'+'app_id='+process.env.APP_ID+'&app_key='+process.env.APP_KEY+'&results_per_page=20&what='+name+'&where='+place+'&max_days_old=60&sort_by=date';
+        const ans='https://api.adzuna.com/v1/api/jobs/in/search/'+pagenum+'?'+'app_id='+process.env.APP_ID+'&app_key='+process.env.APP_KEY+'&results_per_page=20&what='+name+'&where='+place+'&max_days_old=60&sort_by='+sortbyy+'&salary_min='+salarymin+'&salary_max='+salarymax+'';
         var respon= await axios.get(ans)
         
     } catch (error) {
         console.log("some error")
+        res.redirect('*')
         
     }
 
     var totaljobs=respon.data.count;
-    var totalpages=totaljobs/15;
+    var totalpages=totaljobs/20;
     totalpages=Math.ceil(totalpages);
 
-    res.render('job_listing', {name:name,place:place,jobs:respon.data.results,count:respon.data.count,pagenum:pagenum,totalpages:totalpages})
+    res.render('job_listing', {sortbyy:sortbyy,salarymax:salarymax,salarymin:salarymin,name:xname,place:place,jobs:respon.data.results,count:respon.data.count,pagenum:pagenum,totalpages:totalpages,filterapplied:filterapplied})
 })
 
-router.post('/newpage',(req,res)=>{
-    var ans=req.body.jobname;
-    res.send(ans);
-})
+
 
 // search  with page num
 // router.get('/search/:current/:name/:place',async(req, res) => {
@@ -78,13 +85,22 @@ router.post('/newpage',(req,res)=>{
 // })
 
 
-
+// route for rendering contact page
 router.get('/contact',(req, res)=>{
     res.render('contact')
 })
 
+
+// route for rendering about page
 router.get('/about',(req, res)=>{
     res.render('about')
 })
 
+// route to handle error pages
+router.get('*',(req,res)=>{
+    res.render('404')
+})
+
+
+// exporting router object
 module.exports = router;
