@@ -81,7 +81,7 @@
                                             <li><i class="fas fa-map-marker-alt"></i><%= data.location.display_name %> </li>
                
 
-                                            <li>₹<%= data.salary_min %>-<%= data.salary_max %></li>
+                                            <li>₹<%= parseInt(data.salary_min)/1000 %>k-₹<%=parseInt(data.salary_max)/1000 %>k</li>
 
                                         </ul>
                                     </div>

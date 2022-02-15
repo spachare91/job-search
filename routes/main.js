@@ -14,12 +14,13 @@ router.get('/',async(req, res) => {
     try {
 
   
-        const ans='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=9e7a233e&app_key=4904e43930836cc2735e549d77eef526&results_per_page=5&what_or=full%20stack%20backend%20developer&salary_min=5000&sort_by=date';
+        const ans='https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=9e7a233e&app_key=4904e43930836cc2735e549d77eef526&results_per_page=5&what_or=full%20stack%20backend%20developer&salary_min=5000&salary_max=2000000&sort_by=date';
         var respon= await axios.get(ans)
         
     } catch (error) {
         console.log("some error")
-        res.redirect('*')
+        res.redirect('/err')
+        
         
     }
 
@@ -49,7 +50,8 @@ router.post('/search',async(req, res) => {
         
     } catch (error) {
         console.log("some error")
-        res.redirect('*')
+        res.redirect('/err')
+        
         
     }
 
@@ -96,7 +98,11 @@ router.get('/about',(req, res)=>{
     res.render('about')
 })
 
-// route to handle error pages
+// route to handle route errors
+router.get('/err',(req,res)=>{
+    res.render('404')
+})
+
 router.get('*',(req,res)=>{
     res.render('404')
 })
