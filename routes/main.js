@@ -19,7 +19,6 @@ router.get('/',async(req, res) => {
         
     } catch (error) {
         console.log("some error")
-        res.redirect('/err')
         
         
     }
@@ -50,7 +49,6 @@ router.post('/search',async(req, res) => {
         
     } catch (error) {
         console.log("some error")
-        res.redirect('/err')
         
         
     }
