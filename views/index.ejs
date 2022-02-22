@@ -70,10 +70,10 @@
                             <div class="single-job-items mb-30">
                                 <div class="job-items">
                                     <div class="company-img">
-                                        <a href="#"><img src="img/icon/preview.jpeg" alt="" width="85" height="85"></a>
+                                        <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer"><img src="img/icon/preview.jpeg" alt="" width="85" height="85"></a>
                                     </div>
                                     <div class="job-tittle job-tittle2">
-                                        <a href="#">
+                                        <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer">
                                             <h4><%= data.company.display_name %> </h4>
                                         </a>
                                         <ul>
@@ -88,7 +88,7 @@
 
                                 </div>
                                 <div class="items-link items-link2 f-right">
-                                    <a href="<%= data.redirect_url %> ">Details </a>
+                                    <a href="<%= data.redirect_url %>" target="_blank" rel="noopener noreferrer">Details </a>
                                     <span><%= data.created.substring(0,10) %> </span>
                                 </div>
 
