@@ -9,7 +9,7 @@ let port = process.env.PORT;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+//app.use(express.json());
 
 // SETTING VIEW ENGINE
 app.set("view engine", "ejs");
